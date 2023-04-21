@@ -172,16 +172,6 @@ return (
       </Alert>
     )}
     <div>
-    <Card className='custom-card'>
-                <Card.Body>
-                    <Card.Text>
-                        Now Serving: {queue?.front?.number ?? "none"}
-                    </Card.Text>
-                    <Card.Text>
-                        Last Number: {queue?.rear?.number ?? "none"}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
         <Container>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
                 {counters.map((counter, index) => (
