@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import { Counter, Queue, Ticket } from './types';
 import {Container, Row, Col, Button, Card} from 'react-bootstrap';
 import axios from 'axios';
-import './custom.css';
-import { io, Socket } from "socket.io-client";
+import './styles/custom.css';
 import { socket } from './socket';
 
 function Customer() {
@@ -14,12 +13,10 @@ function Customer() {
 
     const [queue, setQueue] = useState<Queue>();
 
-    const [updateStatus, setUpdateStatus] = useState(false);
 
     useEffect(()=>{
         socket.on("receiveStatus", (data: Counter) => {
           console.log(`Received message: ${data}`);
-          // setUpdateStatus(!updateStatus);
           setCounters((prevCounters)=> {
             const index = prevCounters.findIndex((counter) => counter.ind === data.ind);
             const updatedCounters = [...prevCounters];
@@ -29,7 +26,6 @@ function Customer() {
         });
         socket.on("receiveNext", (data: Counter) => {
             console.log(`Received message: ${data}`);
-            // setUpdateStatus(!updateStatus);
             setCounters((prevCounters)=> {
               const index = prevCounters.findIndex((counter) => counter.ind === data.ind);
               const updatedCounters = [...prevCounters];
@@ -46,7 +42,6 @@ function Customer() {
 
         socket.on("receiveQueue", (data: Queue) => {
             console.log(`Received message: ${data}`);
-            // setUpdateStatus(!updateStatus);
             setQueue(data);
           });
 
@@ -64,7 +59,6 @@ function Customer() {
       }, [socket])
 
     useEffect(() => {
-        console.log("outside")
         axios.get('http://localhost:5000/api/queue/get')
             .then((response) => {
                 setQueue(response.data);
@@ -73,7 +67,6 @@ function Customer() {
             .catch((error) => {
                 console.log(error);
             });
-        console.log("first")
         axios.get('http://localhost:5000/api/counter/get')
             .then((response) => {
                 setCounters(response.data);
@@ -82,27 +75,13 @@ function Customer() {
             .catch((error) => {
                 console.log(error);
             });
-        console.log("2nd")
     }, []);
-
-    useEffect(()=>{
-        axios.get('http://localhost:5000/api/counter/get')
-            .then((response) => {
-                setCounters(response.data);
-                // setLsn(response.data.currentNumber);
-                // setLin(response.data.currentNumber);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    },[updateStatus])
 
     //take a new number function
     const enqueue = () => {
         axios.get('http://localhost:5000/api/queue/enqueue')
             .then((response) => {
                 setQueue(response.data);
-                console.log("queue",response.data)
                 socket.emit("updateQueue", response.data);
             })
             .catch((err) => {
@@ -145,7 +124,6 @@ function Customer() {
                                         {counter?.status === "offline" ? "Offline" : counter?.currentNumber?.number}
                                     </Card.Text>
                                     <Card.Text>
-                                        {/* {counter?.status} */}
                                     </Card.Text>
                                 </Card.Body>
                                 </div>

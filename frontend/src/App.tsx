@@ -3,7 +3,7 @@ import React from 'react';
 // import { socket } from './socket';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
-import './App.css';
+import './styles/App.css';
 
 import { io, Socket } from "socket.io-client";
 

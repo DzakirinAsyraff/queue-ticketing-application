@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Counter, Queue, Ticket } from './types';
 import {Container, Row, Col, Button, Card, Alert} from 'react-bootstrap';
 import axios from 'axios';
-import './custom.css';
+import './styles/custom.css';
 import io from "socket.io-client";
 
 const socket = io("http://localhost:5000");

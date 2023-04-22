@@ -5,3 +5,5 @@ export interface Counter {
     status: "online" | "serving" | "offline";
     currentNumber: Ticket | null;
   }
+
+  export const counters: Counter[] = [];
