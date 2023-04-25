@@ -6,4 +6,4 @@
 Steps:
 1. Clone repository
 2. Open terminal and run command `cd backend` and then `npm start`
-  ![command line](https://raw.githubusercontent.com/DzakirinAsyraff/queue-ticketing-application/main/images/screenshot1.PNG)
+![command line](https://raw.githubusercontent.com/DzakirinAsyraff/queue-ticketing-application/main/images/screenshot1.PNG)
