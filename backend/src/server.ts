@@ -5,8 +5,8 @@ import { createCounters } from "./services/counterService";
 import { Server } from "socket.io";
 import { connection } from "./services/socket";
 
-// const port = process.env.PORT||443;
-const port = 80;
+const port = process.env.PORT||5000;
+// const port = 80;
 const server = http.createServer(app);
 export const io = new Server(server, {
   cors: {

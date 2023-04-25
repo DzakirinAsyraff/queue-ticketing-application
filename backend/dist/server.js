@@ -10,8 +10,8 @@ const counterService_1 = require("./services/counterService");
 // import "dotenv/config";
 const socket_io_1 = require("socket.io");
 const socket_1 = require("./services/socket");
-// const port = process.env.PORT||443;
-const port = 80;
+const port = process.env.PORT || 5000;
+// const port = 80;
 const server = http_1.default.createServer(app_1.default);
 exports.io = new socket_io_1.Server(server, {
     cors: {
