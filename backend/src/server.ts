@@ -1,7 +1,7 @@
 import app from "./app";
 import http from "http";
 import { createCounters } from "./services/counterService";
-import "dotenv/config";
+// import "dotenv/config";
 import { Server } from "socket.io";
 import { connection } from "./services/socket";
 
