@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { queue } from "../models/queue.model";
-import { initTicket } from "../models/ticket.model";
-// import { createQueue } from "../services/queueService";
+import { initTicket, queue } from "../data/data";
 
 // API Function
 export const getQueue = (req: Request, res: Response): void => {  

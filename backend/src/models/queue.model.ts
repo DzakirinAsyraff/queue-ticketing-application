@@ -6,10 +6,3 @@ export interface Queue {
     front: Ticket | null;
     rear: Ticket | null;
   }
-
-export const queue: Queue = {
-   id: "q",
-   tickets: [],
-   front: null,
-   rear: null,
- };

@@ -1,6 +1,5 @@
-import { Queue } from "../models/queue.model";
-import { Ticket } from "../models/ticket.model";
-import { Counter, counters } from "../models/counter.model";
+import { Counter } from "../models/counter.model";
+import { counters } from "../data/data";
 
 export const createCounters = (size: number): void => {
     for (let i = 0; i < size; i++) {

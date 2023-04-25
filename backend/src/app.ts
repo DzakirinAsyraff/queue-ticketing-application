@@ -7,7 +7,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded()); //Parse URL-encoded bodies
+app.use(express.urlencoded());
 
 app.use("/api/counter", counterRoutes);
 app.use("/api/queue", queueRoutes);

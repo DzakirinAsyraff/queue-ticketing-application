@@ -1,6 +1,5 @@
-import { Queue, queue } from "../models/queue.model";
+import { Queue } from "../models/queue.model";
 import { Ticket } from "../models/ticket.model";
-
 
   export const dequeueTicket = (queue:Queue): Ticket | null  => {
     if (queue) {
@@ -15,14 +14,11 @@ import { Ticket } from "../models/ticket.model";
           queue.rear = null;
         }
         return removedTicket;
-        // res.status(200).json({ removedTicket });
       } else {
         return null;
-        // res.status(404).send({ message: "No tickets to dequeue" });
       }
     } else {
       return null;
-      // res.status(404).send({ message: "Queue not found" });
     }
   };
 
@@ -38,8 +34,6 @@ import { Ticket } from "../models/ticket.model";
         queue.front = newTicket;
         queue.rear = newTicket;
       } else {
-        // set rear as newTicket and update the previous ticket's next pointer
-        // queue.rear.next = newTicket;
         queue.rear = newTicket;
       }
   }

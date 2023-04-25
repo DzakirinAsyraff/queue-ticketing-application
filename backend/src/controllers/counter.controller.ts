@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Counter, counters } from "../models/counter.model";
+import { Counter } from "../models/counter.model";
 import { Ticket } from "../models/ticket.model";
-import { queue } from "../models/queue.model";
+import { counters, queue } from "../data/data";
 import { dequeueTicket } from "../services/queueService";
 
 //API function
@@ -67,11 +67,8 @@ export const completeCurrent = (req: Request, res: Response): void => {
     status: counter.status === "serving" ? "online" : counter.status,
   };
 
-  
-
   // update the counters array by finding index
   const index = counters.findIndex((counter) => counter.ind === counterId);
   counters[index] = updatedCounter;
-
   res.status(200).json(updatedCounter);
 };

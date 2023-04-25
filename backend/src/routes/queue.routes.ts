@@ -5,6 +5,5 @@ const router = Router();
 
 router.get("/get", getQueue);
 router.get("/enqueue", enqueueTicket);
-// router.get("/dequeue", dequeueTicket);
 
 export default router
