@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "start": "cd backend && node dist/server.js",
+    "start": "node dist/server.js",
     "lint": "eslint --ext .ts src/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "tsc",

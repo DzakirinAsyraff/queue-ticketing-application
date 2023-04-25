@@ -11,5 +11,8 @@ app.use(express.urlencoded());
 
 app.use("/api/counter", counterRoutes);
 app.use("/api/queue", queueRoutes);
+app.use("/", (req, res) => {
+    res.send("Server running!");
+});
 
 export default app;
