@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/queue/";
+// const API_URL = "http://localhost:5000/api/queue/";
+const API_URL = "https://queue-ticketing.azurewebsites.net/api/queue/";
 
 export const queueAPI = {
 
