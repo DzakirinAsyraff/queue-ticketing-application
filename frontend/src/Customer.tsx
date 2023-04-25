@@ -1,76 +1,54 @@
-// import React from 'react';
-import { useState, useEffect } from 'react'
-import { Counter, Queue, Ticket } from './types';
-import {Container, Row, Col, Button, Card} from 'react-bootstrap';
-import axios from 'axios';
+import { useEffect } from 'react'
+import { Counter, Queue } from './types/types';
+import {Container, Button, Card} from 'react-bootstrap';
+import { useAppDispatch, useAppSelector } from './hooks/useRedux';
+import { counterAPI } from './API/counterAPI';
+import { queueAPI } from './API/queueAPI';
 import './styles/custom.css';
 import { socket } from './socket';
+import { setAllCounters, setACounter } from './redux/counterSlice';
+import { setQueue } from './redux/queueSlice';
 
 function Customer() {
 
-    //array of counters (size of 4)
-    const [counters, setCounters] = useState<Counter[]>([]);
-
-    const [queue, setQueue] = useState<Queue>();
-
+    const dispatch = useAppDispatch();
+    const queue = useAppSelector((state)=>state.queue);
+    const counter = useAppSelector((state)=>state.counter);
 
     useEffect(()=>{
         socket.on("receiveStatus", (data: Counter) => {
-          console.log(`Received message: ${data}`);
-          setCounters((prevCounters)=> {
-            const index = prevCounters.findIndex((counter) => counter.ind === data.ind);
-            const updatedCounters = [...prevCounters];
-            updatedCounters[index] = data;
-            return updatedCounters;
-          })
+            dispatch(setACounter(data));
         });
+
         socket.on("receiveNext", (data: Counter) => {
-            console.log(`Received message: ${data}`);
-            setCounters((prevCounters)=> {
-              const index = prevCounters.findIndex((counter) => counter.ind === data.ind);
-              const updatedCounters = [...prevCounters];
-              updatedCounters[index] = data;
-              return updatedCounters;
-            })
-            // update the queue
-            axios.get('http://localhost:5000/api/queue/get')
+            dispatch(setACounter(data));
+            queueAPI.getQueue()
             .then((response) => {
-                setQueue(response.data);
-                console.log("q", response.data)
+                dispatch(setQueue(response));
             })
           });
 
         socket.on("receiveQueue", (data: Queue) => {
-            console.log(`Received message: ${data}`);
-            setQueue(data);
+            dispatch(setQueue(data));
           });
 
         socket.on("receiveComplete", (data: Counter) => {
-            console.log(`Received message: ${data}`);
-            // setUpdateStatus(!updateStatus);
-            setCounters((prevCounters)=> {
-              const index = prevCounters.findIndex((counter) => counter.ind === data.ind);
-              const updatedCounters = [...prevCounters];
-              updatedCounters[index] = data;
-              return updatedCounters;
-            })
+            dispatch(setACounter(data))
           });
 
       }, [socket])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/queue/get')
+        queueAPI.getQueue()
             .then((response) => {
-                setQueue(response.data);
-                console.log("q", response.data)
+                dispatch(setQueue(response));
             })
             .catch((error) => {
                 console.log(error);
             });
-        axios.get('http://localhost:5000/api/counter/get')
+        counterAPI.getCounter()
             .then((response) => {
-                setCounters(response.data);
-                console.log("c", response.data)
+                dispatch(setAllCounters(response))
             })
             .catch((error) => {
                 console.log(error);
@@ -79,17 +57,15 @@ function Customer() {
 
     //take a new number function
     const enqueue = () => {
-        axios.get('http://localhost:5000/api/queue/enqueue')
+        queueAPI.takeTicket()
             .then((response) => {
-                setQueue(response.data);
-                socket.emit("updateQueue", response.data);
+                dispatch(setQueue(response));
+                socket.emit("updateQueue", response);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-
-
 
   return (
     <>
@@ -112,7 +88,7 @@ function Customer() {
             </Card>
             <Container>
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                    {counters.map((counter) => (
+                    {counter.counters.map((counter) => (
                             <Card className={`custom-card${counter.status === 'offline' ? ' closed-card' : ''}`}>
                                 <div style={{position: 'relative'}}>
                                 <div className={`${counter.status === 'serving' ? 'dot-serving' : counter.status === 'offline' ? 'dot-offline' : 'dot'}`}></div>

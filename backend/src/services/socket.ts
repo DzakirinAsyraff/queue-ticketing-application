@@ -6,7 +6,7 @@ export const connection = (socket:Socket) => {
     console.log("Client connected:", socket.id);
 
   socket.on("updateStatus", (data: Counter) => {
-    console.log(`Update status: ${data}`);
+    console.log(`Update status: ${data.status}`);
     socket.broadcast.emit("receiveStatus", data);
   });
 
