@@ -16,7 +16,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 
 app.use("/api/counter", counterRoutes);
 app.use("/api/queue", queueRoutes);

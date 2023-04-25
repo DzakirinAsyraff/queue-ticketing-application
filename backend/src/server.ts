@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import { connection } from "./services/socket";
 
 // const port = process.env.PORT||443;
-const port = 443;
+const port = 80;
 const server = http.createServer(app);
 export const io = new Server(server, {
   cors: {
@@ -17,7 +17,7 @@ export const io = new Server(server, {
 io.on("connection", connection);
 
 
-server.listen(443, () => {
+server.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
     createCounters(4);
     }
