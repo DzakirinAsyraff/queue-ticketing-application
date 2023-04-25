@@ -9,7 +9,7 @@ const corsOptions = {
     origin: [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "https://blue-sand-0962c6400.3.azurestaticapps.net/",
+        "https://blue-sand-0962c6400.3.azurestaticapps.net",
     ]
 };
 
