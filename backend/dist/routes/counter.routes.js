@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const counter_controller_1 = require("../controllers/counter.controller");
+const router = (0, express_1.Router)();
+router.get("/get", counter_controller_1.getCounters);
+router.put("/toggle/:counterId", counter_controller_1.toggleCounterStatus);
+router.put("/call/:counterId", counter_controller_1.callNext);
+router.put("/complete/:counterId", counter_controller_1.completeCurrent);
+exports.default = router;
