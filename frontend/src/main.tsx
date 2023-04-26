@@ -8,10 +8,11 @@ import Management from './Management';
 import {
   createBrowserRouter,
   RouterProvider,
+  createHashRouter
 } from "react-router-dom";
 import './styles/index.css'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <App/>,
